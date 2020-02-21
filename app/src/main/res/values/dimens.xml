@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="launch_list_mission_patch_size">36dp</dimen>
+    <dimen name="launch_patch_list_item_margin">16dp</dimen>
+    <dimen name="mission_patch_image_margin">16dp</dimen>
+    <dimen name="launch_name_margin">16dp</dimen>
+    <dimen name="launch_list_item_margin">8dp</dimen>
+    <dimen name="launch_list_detail_margin">4dp</dimen>
+    <dimen name="launch_list_icon_margin">16dp</dimen>
+</resources>
