@@ -19,10 +19,11 @@ class LaunchListViewModelTest {
     @Test
     fun testLoadingWithCachedData() {
         launchListViewModelRobot {
-            val launches = createListOfLaunches()
-            mockLoadPastLaunchesResource(Resource.loading(launches))
-
             initialiseViewModel()
+            val launches = createListOfLaunches()
+            mockLoadLaunchesResource(Resource.loading(launches))
+
+            loadLaunches()
 
             verifyIsLoading(true)
             verifyLaunches(launches)
@@ -33,9 +34,10 @@ class LaunchListViewModelTest {
     @Test
     fun testLoadingWithoutCachedData() {
         launchListViewModelRobot {
-            mockLoadPastLaunchesResource(Resource.loading(null))
-
             initialiseViewModel()
+            mockLoadLaunchesResource(Resource.loading(null))
+
+            loadLaunches()
 
             verifyIsLoading(true)
             verifyLaunches(null)
@@ -46,10 +48,11 @@ class LaunchListViewModelTest {
     @Test
     fun testSuccess() {
         launchListViewModelRobot {
-            val launches = createListOfLaunches()
-            mockLoadPastLaunchesResource(Resource.success(launches))
-
             initialiseViewModel()
+            val launches = createListOfLaunches()
+            mockLoadLaunchesResource(Resource.success(launches))
+
+            loadLaunches()
 
             verifyIsLoading(false)
             verifyErrorMessage(null)
@@ -60,10 +63,11 @@ class LaunchListViewModelTest {
     @Test
     fun testFailureWithCachedData() {
         launchListViewModelRobot {
-            val launches = createListOfLaunches()
-            mockLoadPastLaunchesResource(Resource.error("An error occurred", launches))
-
             initialiseViewModel()
+            val launches = createListOfLaunches()
+            mockLoadLaunchesResource(Resource.error("An error occurred", launches))
+
+            loadLaunches()
 
             verifyIsLoading(false)
             verifyErrorMessage("An error occurred")
@@ -74,9 +78,10 @@ class LaunchListViewModelTest {
     @Test
     fun testFailureWithoutCachedData() {
         launchListViewModelRobot {
-            mockLoadPastLaunchesResource(Resource.error("An error occurred", null))
-
             initialiseViewModel()
+            mockLoadLaunchesResource(Resource.error("An error occurred", null))
+
+            loadLaunches()
 
             verifyIsLoading(false)
             verifyErrorMessage("An error occurred")

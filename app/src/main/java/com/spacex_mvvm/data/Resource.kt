@@ -16,6 +16,11 @@ data class Resource<out T>(val status: Status, val data: T?, val errorMessage: S
     }
 }
 
+inline fun <T, R> Resource<T>.mapData(transform: (T?) -> R?): Resource<R> {
+    val mappedData = transform(this.data)
+    return Resource(this.status, mappedData, this.errorMessage)
+}
+
 enum class Status {
     SUCCESS,
     ERROR,

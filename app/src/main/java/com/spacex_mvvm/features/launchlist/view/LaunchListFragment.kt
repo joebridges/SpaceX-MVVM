@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.spacex_mvvm.SpaceXApplication
 import com.spacex_mvvm.databinding.FragmentLaunchListBinding
 import kotlinx.android.synthetic.main.fragment_launch_list.*
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class LaunchListFragment : Fragment() {
@@ -20,7 +22,13 @@ class LaunchListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private val args: LaunchListFragmentArgs by navArgs()
+
+    private lateinit var binding: FragmentLaunchListBinding
+
     private lateinit var errorSnackbar: Snackbar
+
+    private val adapter = LaunchAdapter()
 
     private val viewModel: LaunchListViewModel by viewModels {
         viewModelFactory
@@ -33,7 +41,7 @@ class LaunchListFragment : Fragment() {
     ): View? {
         inject()
 
-        val binding = FragmentLaunchListBinding.inflate(layoutInflater, container, false)
+        binding = FragmentLaunchListBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         return binding.root
@@ -42,11 +50,18 @@ class LaunchListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        launchesRecycler.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = LaunchAdapter()
-        launchesRecycler.adapter = adapter
+        setUpRecyclerView()
 
         errorSnackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_INDEFINITE)
+
+        val launchEra = getLaunchTimeEra()
+
+        swipeRefresh.setOnRefreshListener {
+            viewModel.loadLaunchesForEra(
+                launchEra,
+                forceRefresh = true
+            )
+        }
 
         viewModel.launches.observe(viewLifecycleOwner, Observer { launches ->
             adapter.submitList(launches)
@@ -55,10 +70,19 @@ class LaunchListFragment : Fragment() {
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
             bindErrorMessage(errorMessage)
         })
+
+        viewModel.loadLaunchesForEra(launchEra)
     }
 
     private fun inject() {
         SpaceXApplication.get().appComponent.inject(this)
+    }
+
+    private fun setUpRecyclerView() {
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@LaunchListFragment.adapter
+        }
     }
 
     private fun bindErrorMessage(errorMessage: String?) {
@@ -68,4 +92,21 @@ class LaunchListFragment : Fragment() {
             errorSnackbar.dismiss()
         }
     }
+
+    private fun getLaunchTimeEra(): LaunchEra {
+        return when (args.launchEra) {
+            PAST_LAUNCHES_STRING -> LaunchEra.PAST
+            UPCOMING_LAUNCHES_STRING -> LaunchEra.UPCOMING
+            else -> throw IllegalArgumentException("Unrecognised launch era string ${args.launchEra}")
+        }
+    }
+
+    companion object {
+        const val PAST_LAUNCHES_STRING = "past"
+        const val UPCOMING_LAUNCHES_STRING = "upcoming"
+    }
+}
+
+enum class LaunchEra {
+    PAST, UPCOMING
 }

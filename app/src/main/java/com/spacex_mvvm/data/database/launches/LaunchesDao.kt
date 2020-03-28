@@ -11,6 +11,6 @@ interface LaunchesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLaunch(launch: LaunchEntity)
 
-    @Query("SELECT * FROM launches")
-    fun observeLaunches(): Flow<List<LaunchWithRocketAndSite>>
+    @Query("SELECT * FROM launches WHERE isUpcoming = :isUpcoming")
+    fun observeLaunches(isUpcoming: Boolean): Flow<List<LaunchWithRocketAndSite>>
 }

@@ -6,9 +6,10 @@ data class Launch(
     @field:Json(name = "flight_number") val id: String,
     @field:Json(name = "mission_name") val missionName: String,
     @field:Json(name = "launch_date_utc") val launchDateUtc: String,
-    val rocket: Rocket,
+    @field:Json(name = "upcoming") val isUpcoming: Boolean,
+    @field:Json(name = "rocket") val rocket: Rocket,
     @field:Json(name = "launch_site") val site: Site,
-    val links: Links
+    @field:Json(name = "links") val links: Links
 )
 
 data class Rocket(

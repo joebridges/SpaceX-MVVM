@@ -16,7 +16,7 @@ interface SpaceXService {
 
 
     companion object {
-        const val FUTURE_LAUNCH_PATH = "upcoming"
+        const val UPCOMING_LAUNCH_PATH = "upcoming"
         const val PAST_LAUNCHES_PATH = "past"
     }
 }

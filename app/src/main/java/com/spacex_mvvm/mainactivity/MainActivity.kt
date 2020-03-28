@@ -1,9 +1,11 @@
 package com.spacex_mvvm.mainactivity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.spacex_mvvm.R
-import com.spacex_mvvm.features.launchlist.view.LaunchListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,13 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer,
-                    LaunchListFragment()
-                )
-                .commit()
-        }
+        val navigationController = findNavController(R.id.nav_host_fragment)
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.mainActivityBottomNav)
+        bottomNavigation.setupWithNavController(navigationController)
     }
 }

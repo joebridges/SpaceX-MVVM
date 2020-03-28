@@ -19,6 +19,7 @@ class LaunchesResponseMapper @Inject constructor() :
                     id,
                     missionName,
                     launchDateUtc,
+                    isUpcoming,
                     links.missionPatch,
                     getLaunchImageUrl(launch),
                     mapRocket(rocket),

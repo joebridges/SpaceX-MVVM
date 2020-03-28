@@ -8,6 +8,7 @@ data class LaunchEntity(
     @PrimaryKey val id: String,
     val missionName: String,
     val launchDateUtc: String,
+    val isUpcoming: Boolean,
     val missionPatchImageUrl: String?,
     val launchImageUrl: String?,
     val rocketId: String,

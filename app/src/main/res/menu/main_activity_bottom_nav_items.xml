@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/upcomingLaunches"
+        android:title="Upcoming Launches" />
+    <item
+        android:id="@+id/pastLaunches"
+        android:title="Past Launches" />
+</menu>

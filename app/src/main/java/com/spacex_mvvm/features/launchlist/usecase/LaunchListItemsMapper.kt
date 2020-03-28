@@ -6,8 +6,8 @@ import javax.inject.Inject
 class LaunchListItemsMapper @Inject constructor(
     private val dateConverter: UtcToLocalDateConverter
 ) {
-    fun mapToListIem(launches: List<Launch>): List<LaunchListItem> {
-        return launches.map { launch ->
+    fun mapToListIem(launches: List<Launch>?): List<LaunchListItem>? {
+        return launches?.map { launch ->
             with(launch) {
                 LaunchListItem(
                     id,
