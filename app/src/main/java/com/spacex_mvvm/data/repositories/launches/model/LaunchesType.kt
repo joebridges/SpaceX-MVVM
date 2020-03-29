@@ -9,3 +9,10 @@ fun LaunchEra.toUrlPathParam(): String {
         LaunchEra.UPCOMING -> SpaceXService.UPCOMING_LAUNCH_PATH
     }
 }
+
+fun LaunchEra.getDefaultOrder(): String {
+    return when (this) {
+        LaunchEra.PAST -> SpaceXService.ORDER_DESC
+        LaunchEra.UPCOMING -> SpaceXService.ORDER_ASC
+    }
+}

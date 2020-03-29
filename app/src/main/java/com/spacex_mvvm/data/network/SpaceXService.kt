@@ -10,13 +10,16 @@ interface SpaceXService {
     @GET("launches/{launches_type}")
     suspend fun getLaunches(
         @Path("launches_type") launchesType: String,
-        @Query("limit") limit: Int = 20,
-        @Query("order") order: String = "desc"
+        @Query("order") order: String,
+        @Query("limit") limit: Int = 20
     ): List<Launch>
 
 
     companion object {
         const val UPCOMING_LAUNCH_PATH = "upcoming"
         const val PAST_LAUNCHES_PATH = "past"
+
+        const val ORDER_ASC = "asc"
+        const val ORDER_DESC = "desc"
     }
 }

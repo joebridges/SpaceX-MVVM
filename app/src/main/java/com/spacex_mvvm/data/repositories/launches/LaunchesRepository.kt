@@ -10,6 +10,7 @@ import com.spacex_mvvm.data.mappers.launch.LaunchEntityMapper
 import com.spacex_mvvm.data.mappers.launch.LaunchesResponseMapper
 import com.spacex_mvvm.data.network.SpaceXService
 import com.spacex_mvvm.data.repositories.launches.model.Launch
+import com.spacex_mvvm.data.repositories.launches.model.getDefaultOrder
 import com.spacex_mvvm.data.repositories.launches.model.toUrlPathParam
 import com.spacex_mvvm.extensions.asErrorResource
 import com.spacex_mvvm.extensions.asSuccessResource
@@ -68,7 +69,10 @@ class LaunchesRepository @Inject constructor(
         forceRefresh || launchesRateLimiter.shouldFetch(launchEra)
 
     private suspend fun fetchLaunches(era: LaunchEra): List<Launch> {
-        val response = spaceXService.getLaunches(era.toUrlPathParam())
+        val response = spaceXService.getLaunches(
+            era.toUrlPathParam(),
+            era.getDefaultOrder()
+        )
         return launchesResponseMapper.mapFromResponse(response)
     }
 
