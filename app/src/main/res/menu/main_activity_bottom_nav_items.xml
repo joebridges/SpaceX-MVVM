@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/upcomingLaunches"
-        android:title="Upcoming Launches" />
+        android:title="@string/upcoming_launches" />
     <item
         android:id="@+id/pastLaunches"
-        android:title="Past Launches" />
+        android:title="@string/past_launches" />
 </menu>

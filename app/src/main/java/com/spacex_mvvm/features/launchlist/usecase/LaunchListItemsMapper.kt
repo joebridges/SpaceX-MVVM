@@ -4,7 +4,7 @@ import com.spacex_mvvm.data.repositories.launches.model.Launch
 import javax.inject.Inject
 
 class LaunchListItemsMapper @Inject constructor(
-    private val dateConverter: UtcToLocalDateConverter
+    private val dateFormatter: LaunchDateFormatter
 ) {
     fun mapToListIem(launches: List<Launch>?): List<LaunchListItem>? {
         return launches?.map { launch ->
@@ -13,7 +13,7 @@ class LaunchListItemsMapper @Inject constructor(
                     id,
                     missionPatchImageUrl,
                     missionName,
-                    mapUtcDateToLocal(launchDateUtc),
+                    getFormattedLaunchDate(launchDateUtc, isLaunchDateTbd, isLaunchDateTentative),
                     site.siteName,
                     rocket.name
                 )
@@ -21,7 +21,11 @@ class LaunchListItemsMapper @Inject constructor(
         }
     }
 
-    private fun mapUtcDateToLocal(utcDate: String): String {
-        return dateConverter.convertToLocalShortDateString(utcDate)
+    private fun getFormattedLaunchDate(
+        utcDate: String,
+        isLaunchDateTbd: Boolean,
+        isLaunchDateTentative: Boolean
+    ): String {
+        return dateFormatter.formatLaunchDate(utcDate, isLaunchDateTbd, isLaunchDateTentative)
     }
 }

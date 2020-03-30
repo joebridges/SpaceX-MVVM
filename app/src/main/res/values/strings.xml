@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">SpaceX-MVVM</string>
+    <string name="app_name">SpaceX Launches</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--bottom navigation-->
+    <string name="upcoming_launches">Upcoming Launches</string>
+    <string name="past_launches">Past Launches</string>
+
+    <string name="date_tbd">(Date TBD)</string>
+    <string name="time_tbd">(Time TBD)</string>
+
 </resources>
