@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/upcomingLaunches"
         android:name="com.spacex_mvvm.features.launchlist.view.LaunchListFragment"
-        android:label="LaunchListFragment">
+        android:label="@string/upcoming_launches">
         <argument
             android:name="launchEra"
             android:defaultValue="upcoming"
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/pastLaunches"
         android:name="com.spacex_mvvm.features.launchlist.view.LaunchListFragment"
-        android:label="LaunchListFragment">
+        android:label="@string/past_launches">
         <argument
             android:name="launchEra"
             android:defaultValue="past"

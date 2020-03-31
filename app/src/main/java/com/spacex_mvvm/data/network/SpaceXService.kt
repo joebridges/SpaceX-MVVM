@@ -7,11 +7,10 @@ import retrofit2.http.Query
 
 interface SpaceXService {
 
-    @GET("launches/{launches_type}")
+    @GET("launches/{launchEra}")
     suspend fun getLaunches(
-        @Path("launches_type") launchesType: String,
-        @Query("order") order: String,
-        @Query("limit") limit: Int = 20
+        @Path("launchEra") launchEra: String,
+        @Query("order") order: String
     ): List<Launch>
 
 
