@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import com.spacex_mvvm.data.Resource
-import com.spacex_mvvm.features.launchlist.usecase.LaunchListItem
+import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 import com.spacex_mvvm.features.launchlist.usecase.ViewLaunchesUseCase
 import kotlinx.coroutines.flow.flowOf
 

@@ -7,7 +7,7 @@
 
         <variable
             name="launch"
-            type="com.spacex_mvvm.features.launchlist.usecase.LaunchListItem" />
+            type="com.spacex_mvvm.features.launchlist.model.LaunchListItem" />
     </data>
 
 

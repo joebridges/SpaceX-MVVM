@@ -10,11 +10,11 @@ import com.spacex_mvvm.data.mappers.launch.LaunchEntityMapper
 import com.spacex_mvvm.data.mappers.launch.LaunchesResponseMapper
 import com.spacex_mvvm.data.network.SpaceXService
 import com.spacex_mvvm.data.repositories.launches.model.Launch
+import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.data.repositories.launches.model.getDefaultOrder
 import com.spacex_mvvm.data.repositories.launches.model.toUrlPathParam
 import com.spacex_mvvm.extensions.asErrorResource
 import com.spacex_mvvm.extensions.asSuccessResource
-import com.spacex_mvvm.features.launchlist.view.LaunchEra
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first

@@ -7,6 +7,7 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import com.spacex_mvvm.data.Status
+import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.features.launchlist.usecase.ViewLaunchesUseCase
 import javax.inject.Inject
 

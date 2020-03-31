@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.spacex_mvvm.SpaceXApplication
+import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.databinding.FragmentLaunchListBinding
 import kotlinx.android.synthetic.main.fragment_launch_list.*
 import java.lang.IllegalArgumentException
@@ -97,7 +98,7 @@ class LaunchListFragment : Fragment() {
         return when (args.launchEra) {
             PAST_LAUNCHES_STRING -> LaunchEra.PAST
             UPCOMING_LAUNCHES_STRING -> LaunchEra.UPCOMING
-            else -> throw IllegalArgumentException("Unrecognised launch era string ${args.launchEra}")
+            else -> throw IllegalArgumentException("Unrecognised launch era type ${args.launchEra}")
         }
     }
 
@@ -105,8 +106,4 @@ class LaunchListFragment : Fragment() {
         const val PAST_LAUNCHES_STRING = "past"
         const val UPCOMING_LAUNCHES_STRING = "upcoming"
     }
-}
-
-enum class LaunchEra {
-    PAST, UPCOMING
 }

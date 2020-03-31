@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.spacex_mvvm.databinding.ViewHolderLaunchBinding
-import com.spacex_mvvm.features.launchlist.usecase.LaunchListItem
+import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 
 class LaunchAdapter : ListAdapter<LaunchListItem, LaunchViewHolder>(diffUtil) {
 

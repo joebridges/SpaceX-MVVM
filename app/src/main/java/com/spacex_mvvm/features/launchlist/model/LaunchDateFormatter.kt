@@ -1,4 +1,4 @@
-package com.spacex_mvvm.features.launchlist.usecase
+package com.spacex_mvvm.features.launchlist.model
 
 import android.content.Context
 import com.spacex_mvvm.R

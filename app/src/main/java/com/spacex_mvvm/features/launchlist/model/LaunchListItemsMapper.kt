@@ -1,7 +1,6 @@
-package com.spacex_mvvm.features.launchlist.usecase
+package com.spacex_mvvm.features.launchlist.model
 
 import com.spacex_mvvm.data.repositories.launches.model.Launch
-import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 import javax.inject.Inject
 
 class LaunchListItemsMapper @Inject constructor(

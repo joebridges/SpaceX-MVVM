@@ -1,4 +1,4 @@
-package com.spacex_mvvm.features.launchlist.usecase
+package com.spacex_mvvm.features.launchlist.model
 
 data class LaunchListItem(
     val id: String,

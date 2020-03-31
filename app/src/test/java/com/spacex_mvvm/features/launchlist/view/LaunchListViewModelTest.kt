@@ -1,7 +1,7 @@
 package com.spacex_mvvm.features.launchlist.view
 
 import com.spacex_mvvm.data.Resource
-import com.spacex_mvvm.features.launchlist.usecase.LaunchListItem
+import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 import org.junit.Test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.spacex_mvvm.rules.MainCoroutineRule
@@ -91,8 +91,22 @@ class LaunchListViewModelTest {
 
     private fun createListOfLaunches(): List<LaunchListItem> {
         return listOf(
-            LaunchListItem("1", "imageurl.com", "starlink", "", "KSC LC 39A", "Falcon 9"),
-            LaunchListItem("2", "imageurl.com", "in flight abort", "", "KSC LC 39A", "Falcon 9")
+            LaunchListItem(
+                "1",
+                "imageurl.com",
+                "starlink",
+                "",
+                "KSC LC 39A",
+                "Falcon 9"
+            ),
+            LaunchListItem(
+                "2",
+                "imageurl.com",
+                "in flight abort",
+                "",
+                "KSC LC 39A",
+                "Falcon 9"
+            )
         )
     }
 }
