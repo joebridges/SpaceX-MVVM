@@ -1,4 +1,4 @@
-package com.spacex_mvvm.data.repositories.launches
+package com.spacex_mvvm.data.repositories
 
 import android.os.SystemClock
 import androidx.collection.ArrayMap

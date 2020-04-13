@@ -13,7 +13,7 @@ fun LaunchEra.toUrlPathParam(): String {
     }
 }
 
-fun LaunchEra.getDefaultOrder(): String {
+fun LaunchEra.getDefaultOrderQueryParam(): String {
     return when (this) {
         LaunchEra.PAST -> SpaceXService.ORDER_DESC
         LaunchEra.UPCOMING -> SpaceXService.ORDER_ASC

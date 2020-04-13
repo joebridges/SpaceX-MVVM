@@ -11,10 +11,10 @@ import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 import com.spacex_mvvm.features.launchlist.usecase.ViewLaunchesUseCase
 import kotlinx.coroutines.flow.flowOf
 
-fun launchListViewModelRobot(func: LaunchListViewModelRobot.() -> Unit) =
-    LaunchListViewModelRobot().apply { func() }
+fun launchListViewModelTestRobot(func: LaunchListViewModelTestRobot.() -> Unit) =
+    LaunchListViewModelTestRobot().apply { func() }
 
-class LaunchListViewModelRobot {
+class LaunchListViewModelTestRobot {
 
     private val mockViewLaunchesUseCase = mock<ViewLaunchesUseCase>()
 

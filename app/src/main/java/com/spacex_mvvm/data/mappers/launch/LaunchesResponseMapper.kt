@@ -5,9 +5,9 @@ import com.spacex_mvvm.data.repositories.launches.model.Launch
 import com.spacex_mvvm.data.repositories.launches.model.Rocket
 import com.spacex_mvvm.data.repositories.launches.model.Site
 import javax.inject.Inject
-import com.spacex_mvvm.data.network.model.Launch as NetworkLaunch
-import com.spacex_mvvm.data.network.model.Rocket as NetworkRocket
-import com.spacex_mvvm.data.network.model.Site as NetworkSite
+import com.spacex_mvvm.data.network.model.LaunchResponseEntity as NetworkLaunch
+import com.spacex_mvvm.data.network.model.RocketResponseEntity as NetworkRocket
+import com.spacex_mvvm.data.network.model.SiteResponseEntity as NetworkSite
 
 class LaunchesResponseMapper @Inject constructor() :
     NetworkResponseMapper<List<NetworkLaunch>, List<Launch>> {

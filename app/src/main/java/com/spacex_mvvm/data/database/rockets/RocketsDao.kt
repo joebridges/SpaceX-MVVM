@@ -7,5 +7,5 @@ import androidx.room.OnConflictStrategy
 @Dao
 interface RocketsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertRocket(rocketEntity: RocketEntity)
+    suspend fun insertRocket(rocketEntity: RocketEntity)
 }

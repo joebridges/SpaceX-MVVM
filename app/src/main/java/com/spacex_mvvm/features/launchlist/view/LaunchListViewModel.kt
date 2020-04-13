@@ -12,7 +12,7 @@ import com.spacex_mvvm.features.launchlist.usecase.ViewLaunchesUseCase
 import javax.inject.Inject
 
 class LaunchListViewModel @Inject constructor(
-    viewLaunchesUseCase: ViewLaunchesUseCase
+    private val viewLaunchesUseCase: ViewLaunchesUseCase
 ) : ViewModel() {
 
     private val launchEra = MutableLiveData<Pair<LaunchEra, Boolean>>()

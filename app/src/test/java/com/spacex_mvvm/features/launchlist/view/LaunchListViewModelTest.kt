@@ -17,8 +17,8 @@ class LaunchListViewModelTest {
     var rule: TestRule = InstantTaskExecutorRule()
 
     @Test
-    fun testLoadingWithCachedData() {
-        launchListViewModelRobot {
+    fun `Test loading with cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
             val launches = createListOfLaunches()
             mockLoadLaunchesResource(Resource.loading(launches))
@@ -32,8 +32,8 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testLoadingWithoutCachedData() {
-        launchListViewModelRobot {
+    fun `Test loading with no cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
             mockLoadLaunchesResource(Resource.loading(null))
 
@@ -46,8 +46,8 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testSuccess() {
-        launchListViewModelRobot {
+    fun `Test success`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
             val launches = createListOfLaunches()
             mockLoadLaunchesResource(Resource.success(launches))
@@ -61,8 +61,8 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testFailureWithCachedData() {
-        launchListViewModelRobot {
+    fun `Test error with cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
             val launches = createListOfLaunches()
             mockLoadLaunchesResource(Resource.error("An error occurred", launches))
@@ -76,8 +76,8 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testFailureWithoutCachedData() {
-        launchListViewModelRobot {
+    fun `Test error without cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
             mockLoadLaunchesResource(Resource.error("An error occurred", null))
 

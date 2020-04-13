@@ -1,6 +1,6 @@
 package com.spacex_mvvm.data.network
 
-import com.spacex_mvvm.data.network.model.Launch
+import com.spacex_mvvm.data.network.model.LaunchResponseEntity
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,7 +11,7 @@ interface SpaceXService {
     suspend fun getLaunches(
         @Path("launchEra") launchEra: String,
         @Query("order") order: String
-    ): List<Launch>
+    ): List<LaunchResponseEntity>
 
 
     companion object {
