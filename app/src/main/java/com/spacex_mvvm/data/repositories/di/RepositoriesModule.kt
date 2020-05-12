@@ -1,9 +1,11 @@
 package com.spacex_mvvm.data.repositories.di
 
+import com.spacex_mvvm.data.database.di.DatabaseModule
 import com.spacex_mvvm.data.database.launches.LaunchesDao
 import com.spacex_mvvm.data.mappers.launch.LaunchEntityMapper
 import com.spacex_mvvm.data.mappers.launch.LaunchesResponseMapper
 import com.spacex_mvvm.data.network.SpaceXService
+import com.spacex_mvvm.data.network.di.NetworkModule
 import com.spacex_mvvm.data.repositories.RateLimiter
 import com.spacex_mvvm.data.repositories.launches.LaunchesDataRepository
 import com.spacex_mvvm.data.repositories.launches.LaunchesRepository
@@ -12,7 +14,12 @@ import dagger.Provides
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Module
+@Module(
+    includes = [
+        DatabaseModule::class,
+        NetworkModule::class
+    ]
+)
 class RepositoriesModule {
 
     @Provides
@@ -23,12 +30,12 @@ class RepositoriesModule {
         launchEntityMapper: LaunchEntityMapper,
         launchesResponseMapper: LaunchesResponseMapper
     ): LaunchesRepository {
-           return LaunchesDataRepository(
-               spaceXService,
-               launchesDao,
-               launchEntityMapper,
-               launchesResponseMapper,
-               RateLimiter(10, TimeUnit.MINUTES)
-           )
+        return LaunchesDataRepository(
+            spaceXService,
+            launchesDao,
+            launchEntityMapper,
+            launchesResponseMapper,
+            RateLimiter(10, TimeUnit.MINUTES)
+        )
     }
 }

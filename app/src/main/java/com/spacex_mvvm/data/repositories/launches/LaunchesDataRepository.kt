@@ -69,7 +69,7 @@ class LaunchesDataRepository @Inject constructor(
     private suspend fun storeLaunches(launches: List<Launch>) {
         val launchEntities = launches.map { launch -> launchEntityMapper.mapToEntity(launch) }
         launchEntities.forEach { entity ->
-            launchesDao.insertLaunchWithRocketAndSite(entity)
+            launchesDao.insertLaunch(entity)
         }
     }
 

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 abstract class LaunchesDao(
     private val appDatabase: AppDatabase
 ) {
-    suspend fun insertLaunchWithRocketAndSite(
+    suspend fun insertLaunch(
         entity: LaunchWithRocketAndSite
     ) = appDatabase.withTransaction {
         insertLaunch(entity.launch)

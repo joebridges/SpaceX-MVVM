@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.spacex_mvvm.SpaceXApplication
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.databinding.FragmentLaunchListBinding
+import com.spacex_mvvm.extensions.requireSpaceXApplication
 import kotlinx.android.synthetic.main.fragment_launch_list.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
@@ -76,7 +77,7 @@ class LaunchListFragment : Fragment() {
     }
 
     private fun inject() {
-        SpaceXApplication.get().appComponent.inject(this)
+        requireSpaceXApplication().appComponent.inject(this)
     }
 
     private fun setUpRecyclerView() {
