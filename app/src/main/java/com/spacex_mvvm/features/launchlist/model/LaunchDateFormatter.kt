@@ -23,7 +23,7 @@ class LaunchDateFormatter @Inject constructor(
         return when {
             isDateTbd -> formatAsTbdDate(utcDate)
             isDateTentative -> formatAsTentativeDate(utcDate)
-            else -> formatAsLocalShortDateString(utcDate)
+            else -> formatAsShortDateString(utcDate)
         }
     }
 
@@ -37,7 +37,7 @@ class LaunchDateFormatter @Inject constructor(
         return "${tentativeDateFormat.format(date)} ${context.getString(R.string.time_tbd)}"
     }
 
-    private fun formatAsLocalShortDateString(utcDate: String): String {
+    private fun formatAsShortDateString(utcDate: String): String {
         val date = inputDateFormat.parse(utcDate)
         return shortDateFormat.format(date)
     }

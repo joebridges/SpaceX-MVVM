@@ -6,7 +6,7 @@ import javax.inject.Inject
 class LaunchListItemsMapper @Inject constructor(
     private val dateFormatter: LaunchDateFormatter
 ) {
-    fun mapToListIem(launches: List<Launch>?): List<LaunchListItem>? {
+    fun mapToListItems(launches: List<Launch>?): List<LaunchListItem> {
         return launches?.map { launch ->
             with(launch) {
                 LaunchListItem(
@@ -18,7 +18,7 @@ class LaunchListItemsMapper @Inject constructor(
                     rocket.name
                 )
             }
-        }
+        } ?: emptyList()
     }
 
     private fun getFormattedLaunchDate(

@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.spacex_mvvm.SpaceXApplication
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.databinding.FragmentLaunchListBinding
 import com.spacex_mvvm.extensions.requireSpaceXApplication
@@ -24,6 +23,10 @@ class LaunchListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private val viewModel: LaunchListViewModel by viewModels {
+        viewModelFactory
+    }
+
     private val args: LaunchListFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentLaunchListBinding
@@ -31,10 +34,6 @@ class LaunchListFragment : Fragment() {
     private lateinit var errorSnackbar: Snackbar
 
     private val adapter = LaunchAdapter()
-
-    private val viewModel: LaunchListViewModel by viewModels {
-        viewModelFactory
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +44,7 @@ class LaunchListFragment : Fragment() {
 
         binding = FragmentLaunchListBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -56,7 +55,7 @@ class LaunchListFragment : Fragment() {
 
         errorSnackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_INDEFINITE)
 
-        val launchEra = getLaunchTimeEra()
+        val launchEra = getLaunchEra()
 
         swipeRefresh.setOnRefreshListener {
             viewModel.loadLaunchesForEra(
@@ -95,7 +94,7 @@ class LaunchListFragment : Fragment() {
         }
     }
 
-    private fun getLaunchTimeEra(): LaunchEra {
+    private fun getLaunchEra(): LaunchEra {
         return when (args.launchEra) {
             PAST_LAUNCHES_STRING -> LaunchEra.PAST
             UPCOMING_LAUNCHES_STRING -> LaunchEra.UPCOMING
