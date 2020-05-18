@@ -17,7 +17,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.spacex_mvvm.test.SpaceXTestRunner"
     }
     buildTypes {
         release {
@@ -68,6 +68,12 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$arch_testing"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+    androidTestImplementation "androidx.arch.core:core-testing:$arch_testing"
     androidTestImplementation "androidx.test.ext:junit:$android_junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline:$dex_maker_version"
+    androidTestImplementation "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 }
