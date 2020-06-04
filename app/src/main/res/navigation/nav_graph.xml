@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/upcomingLaunches">
+    <fragment
+        android:id="@+id/upcomingLaunches"
+        android:name="com.spacex_mvvm.features.launchlist.view.LaunchListFragment"
+        android:label="@string/upcoming_launches">
+        <argument
+            android:name="launchEra"
+            android:defaultValue="upcoming"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/pastLaunches"
+        android:name="com.spacex_mvvm.features.launchlist.view.LaunchListFragment"
+        android:label="@string/past_launches">
+        <argument
+            android:name="launchEra"
+            android:defaultValue="past"
+            app:argType="string" />
+    </fragment>
+</navigation>

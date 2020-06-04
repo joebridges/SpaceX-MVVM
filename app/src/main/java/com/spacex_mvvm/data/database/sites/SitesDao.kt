@@ -7,5 +7,5 @@ import androidx.room.OnConflictStrategy
 @Dao
 interface SitesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertSite(site: SiteEntity)
+    suspend fun insertSite(site: SiteEntity)
 }

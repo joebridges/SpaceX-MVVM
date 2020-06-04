@@ -2,7 +2,7 @@ package com.spacex_mvvm.features.launchlist.view
 
 import androidx.recyclerview.widget.RecyclerView
 import com.spacex_mvvm.databinding.ViewHolderLaunchBinding
-import com.spacex_mvvm.features.launchlist.usecase.LaunchListItem
+import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 
 class LaunchViewHolder(
     private val binding: ViewHolderLaunchBinding

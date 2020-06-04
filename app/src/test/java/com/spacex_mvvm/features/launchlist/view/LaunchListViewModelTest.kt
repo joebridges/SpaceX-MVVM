@@ -1,7 +1,7 @@
 package com.spacex_mvvm.features.launchlist.view
 
 import com.spacex_mvvm.data.Resource
-import com.spacex_mvvm.features.launchlist.usecase.LaunchListItem
+import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 import org.junit.Test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.spacex_mvvm.rules.MainCoroutineRule
@@ -17,12 +17,13 @@ class LaunchListViewModelTest {
     var rule: TestRule = InstantTaskExecutorRule()
 
     @Test
-    fun testLoadingWithCachedData() {
-        launchListViewModelRobot {
-            val launches = createListOfLaunches()
-            mockLoadPastLaunchesResource(Resource.loading(launches))
-
+    fun `Test loading with cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
+            val launches = createListOfLaunches()
+            mockLoadLaunchesResource(Resource.loading(launches))
+
+            loadLaunches()
 
             verifyIsLoading(true)
             verifyLaunches(launches)
@@ -31,11 +32,12 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testLoadingWithoutCachedData() {
-        launchListViewModelRobot {
-            mockLoadPastLaunchesResource(Resource.loading(null))
-
+    fun `Test loading with no cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
+            mockLoadLaunchesResource(Resource.loading(null))
+
+            loadLaunches()
 
             verifyIsLoading(true)
             verifyLaunches(null)
@@ -44,12 +46,13 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testSuccess() {
-        launchListViewModelRobot {
-            val launches = createListOfLaunches()
-            mockLoadPastLaunchesResource(Resource.success(launches))
-
+    fun `Test success`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
+            val launches = createListOfLaunches()
+            mockLoadLaunchesResource(Resource.success(launches))
+
+            loadLaunches()
 
             verifyIsLoading(false)
             verifyErrorMessage(null)
@@ -58,12 +61,13 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testFailureWithCachedData() {
-        launchListViewModelRobot {
-            val launches = createListOfLaunches()
-            mockLoadPastLaunchesResource(Resource.error("An error occurred", launches))
-
+    fun `Test error with cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
+            val launches = createListOfLaunches()
+            mockLoadLaunchesResource(Resource.error("An error occurred", launches))
+
+            loadLaunches()
 
             verifyIsLoading(false)
             verifyErrorMessage("An error occurred")
@@ -72,11 +76,12 @@ class LaunchListViewModelTest {
     }
 
     @Test
-    fun testFailureWithoutCachedData() {
-        launchListViewModelRobot {
-            mockLoadPastLaunchesResource(Resource.error("An error occurred", null))
-
+    fun `Test error without cached data`() {
+        launchListViewModelTestRobot {
             initialiseViewModel()
+            mockLoadLaunchesResource(Resource.error("An error occurred", null))
+
+            loadLaunches()
 
             verifyIsLoading(false)
             verifyErrorMessage("An error occurred")
@@ -86,8 +91,22 @@ class LaunchListViewModelTest {
 
     private fun createListOfLaunches(): List<LaunchListItem> {
         return listOf(
-            LaunchListItem("1", "imageurl.com", "starlink", "", "KSC LC 39A", "Falcon 9"),
-            LaunchListItem("2", "imageurl.com", "in flight abort", "", "KSC LC 39A", "Falcon 9")
+            LaunchListItem(
+                "1",
+                "imageurl.com",
+                "starlink",
+                "",
+                "KSC LC 39A",
+                "Falcon 9"
+            ),
+            LaunchListItem(
+                "2",
+                "imageurl.com",
+                "in flight abort",
+                "",
+                "KSC LC 39A",
+                "Falcon 9"
+            )
         )
     }
 }
