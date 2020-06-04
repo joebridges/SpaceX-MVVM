@@ -1,5 +1,6 @@
 package com.spacex_mvvm.features.launchlist.view
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -9,9 +10,8 @@ import androidx.lifecycle.switchMap
 import com.spacex_mvvm.data.Status
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.features.launchlist.usecase.ViewLaunchesUseCase
-import javax.inject.Inject
 
-class LaunchListViewModel @Inject constructor(
+class LaunchListViewModel @ViewModelInject constructor(
     private val viewLaunchesUseCase: ViewLaunchesUseCase
 ) : ViewModel() {
 
@@ -34,7 +34,10 @@ class LaunchListViewModel @Inject constructor(
     }.distinctUntilChanged()
 
     fun loadLaunchesForEra(launchEra: LaunchEra, forceRefresh: Boolean = false) {
-        this.loadLaunchesArgs.value = LoadLaunchesArgs(launchEra, forceRefresh)
+        val args = LoadLaunchesArgs(launchEra, forceRefresh)
+        if (this.loadLaunchesArgs.value != args) {
+            this.loadLaunchesArgs.value = args
+        }
     }
 }
 
