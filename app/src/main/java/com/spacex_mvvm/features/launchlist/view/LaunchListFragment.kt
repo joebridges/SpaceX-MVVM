@@ -13,19 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.databinding.FragmentLaunchListBinding
-import com.spacex_mvvm.extensions.requireSpaceXApplication
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_launch_list.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class LaunchListFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel: LaunchListViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: LaunchListViewModel by viewModels()
 
     private val args: LaunchListFragmentArgs by navArgs()
 
@@ -40,8 +36,6 @@ class LaunchListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        inject()
-
         binding = FragmentLaunchListBinding.inflate(layoutInflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -73,10 +67,6 @@ class LaunchListFragment : Fragment() {
         })
 
         viewModel.loadLaunchesForEra(launchEra)
-    }
-
-    private fun inject() {
-        requireSpaceXApplication().appComponent.inject(this)
     }
 
     private fun setUpRecyclerView() {

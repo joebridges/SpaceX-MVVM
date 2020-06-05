@@ -5,8 +5,7 @@ import com.spacex_mvvm.data.mappers.EntityMapper
 import com.spacex_mvvm.data.repositories.launches.model.Rocket
 import javax.inject.Inject
 
-class RocketEntityMapper @Inject constructor() :
-    EntityMapper<RocketEntity, Rocket> {
+class RocketEntityMapper @Inject constructor() : EntityMapper<RocketEntity, Rocket> {
 
     override fun mapToEntity(model: Rocket): RocketEntity {
         return with(model) {

@@ -3,6 +3,7 @@ package com.spacex_mvvm.test
 import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
+import dagger.hilt.android.testing.HiltTestApplication
 
 class SpaceXTestRunner : AndroidJUnitRunner() {
 
@@ -10,5 +11,5 @@ class SpaceXTestRunner : AndroidJUnitRunner() {
         cl: ClassLoader?,
         className: String?,
         context: Context?
-    ): Application = super.newApplication(cl, TestApplication::class.java.name, context)
+    ): Application = super.newApplication(cl, HiltTestApplication::class.java.name, context)
 }

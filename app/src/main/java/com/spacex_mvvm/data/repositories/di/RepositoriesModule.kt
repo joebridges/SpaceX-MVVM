@@ -1,25 +1,21 @@
 package com.spacex_mvvm.data.repositories.di
 
-import com.spacex_mvvm.data.database.di.DatabaseModule
 import com.spacex_mvvm.data.database.launches.LaunchesDao
 import com.spacex_mvvm.data.mappers.launch.LaunchEntityMapper
 import com.spacex_mvvm.data.mappers.launch.LaunchesResponseMapper
 import com.spacex_mvvm.data.network.SpaceXService
-import com.spacex_mvvm.data.network.di.NetworkModule
 import com.spacex_mvvm.data.repositories.RateLimiter
 import com.spacex_mvvm.data.repositories.launches.LaunchesDataRepository
 import com.spacex_mvvm.data.repositories.launches.LaunchesRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Module(
-    includes = [
-        DatabaseModule::class,
-        NetworkModule::class
-    ]
-)
+@Module
+@InstallIn(ApplicationComponent::class)
 class RepositoriesModule {
 
     @Provides

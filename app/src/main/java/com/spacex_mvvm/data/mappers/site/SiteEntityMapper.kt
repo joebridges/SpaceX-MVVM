@@ -5,8 +5,7 @@ import com.spacex_mvvm.data.mappers.EntityMapper
 import com.spacex_mvvm.data.repositories.launches.model.Site
 import javax.inject.Inject
 
-class SiteEntityMapper @Inject constructor() :
-    EntityMapper<SiteEntity, Site> {
+class SiteEntityMapper @Inject constructor() : EntityMapper<SiteEntity, Site> {
 
     override fun mapToEntity(model: Site): SiteEntity {
         return with(model) {

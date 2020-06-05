@@ -1,7 +1,9 @@
 package com.spacex_mvvm.features.launchlist.model
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.spacex_mvvm.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -9,8 +11,10 @@ import java.util.TimeZone
 import javax.inject.Inject
 
 class LaunchDateFormatter @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) {
+
+    @SuppressLint("SimpleDateFormat")
     private val inputDateFormat = SimpleDateFormat(INPUT_DATE_FORMAT).apply {
         timeZone = TimeZone.getTimeZone(UTC_TIME_ZONE_ID)
     }
