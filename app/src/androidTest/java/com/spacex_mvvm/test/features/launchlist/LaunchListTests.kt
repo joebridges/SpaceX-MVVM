@@ -61,8 +61,6 @@ class LaunchListTests {
             swipeToRefresh()
             verifyIsRefreshing()
         }
-
-        Thread.sleep(1000)
     }
 
     @Test
