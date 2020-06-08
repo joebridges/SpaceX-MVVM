@@ -7,12 +7,12 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply from: '../dependencies.gradle'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     defaultConfig {
         applicationId "com.spacex_mvvm"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion versions.min_sdk
+        targetSdkVersion versions.target_sdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.spacex_mvvm.test.SpaceXTestRunner"
@@ -40,46 +40,46 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
-    implementation "androidx.appcompat:appcompat:$versions.app_compat"
-    implementation "androidx.core:core-ktx:$versions.core_ktx"
-    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+    implementation "androidx.appcompat:appcompat:$versions.appCompat"
+    implementation "androidx.core:core-ktx:$versions.coreKtx"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycle"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
-    implementation "com.google.dagger:hilt-android:$versions.dagger_hilt"
-    kapt "com.google.dagger:hilt-android-compiler:$versions.dagger_hilt"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.dagger_hilt_androidx"
-    kapt "androidx.hilt:hilt-compiler:$versions.dagger_hilt_androidx"
-    implementation "androidx.hilt:hilt-common:$versions.dagger_hilt_androidx"
+    implementation "com.google.dagger:hilt-android:$versions.daggerHilt"
+    kapt "com.google.dagger:hilt-android-compiler:$versions.daggerHilt"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.daggerHiltAndroidx"
+    kapt "androidx.hilt:hilt-compiler:$versions.daggerHiltAndroidx"
+    implementation "androidx.hilt:hilt-common:$versions.daggerHiltAndroidx"
     implementation "androidx.fragment:fragment-ktx:$versions.fragment"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
-    implementation "com.google.android.material:material:$versions.material_components"
+    implementation "com.google.android.material:material:$versions.materialComponents"
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
-    implementation "androidx.recyclerview:recyclerview:$versions.recyclerview"
+    implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
     implementation "androidx.room:room-runtime:$versions.room"
     implementation "androidx.room:room-ktx:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipe_refresh_layout"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipeRefreshLayout"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "org.mockito:mockito-inline:$versions.mockito"
-    testImplementation "com.nhaarman:mockito-kotlin:$versions.mockito_kotlin"
-    testImplementation "androidx.arch.core:core-testing:$versions.arch_testing"
+    testImplementation "com.nhaarman:mockito-kotlin:$versions.mockitoKotlin"
+    testImplementation "androidx.arch.core:core-testing:$versions.archTesting"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
 
     debugImplementation "androidx.fragment:fragment-testing:$versions.fragment"
-    androidTestImplementation "androidx.arch.core:core-testing:$versions.arch_testing"
-    androidTestImplementation "androidx.test.ext:junit:$versions.android_junit"
+    androidTestImplementation "androidx.arch.core:core-testing:$versions.archTesting"
+    androidTestImplementation "androidx.test.ext:junit:$versions.androidJunit"
     androidTestImplementation "androidx.test:rules:$versions.rules"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso"
-    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline:$versions.dex_maker"
-    androidTestImplementation "com.nhaarman:mockito-kotlin:$versions.mockito_kotlin"
-    androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.dagger_hilt"
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$versions.dagger_hilt"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline:$versions.dexMaker"
+    androidTestImplementation "com.nhaarman:mockito-kotlin:$versions.mockitoKotlin"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.daggerHilt"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$versions.daggerHilt"
 }
