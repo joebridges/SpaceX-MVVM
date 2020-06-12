@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.databinding.FragmentLaunchListBinding
+import com.spacex_mvvm.extensions.scrollToTopOnItemInserted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_launch_list.*
 import java.lang.IllegalArgumentException
@@ -29,8 +30,6 @@ class LaunchListFragment : Fragment() {
 
     private lateinit var errorSnackbar: Snackbar
 
-    private val adapter = LaunchAdapter()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,7 +44,8 @@ class LaunchListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpRecyclerView()
+        val adapter = LaunchAdapter()
+        setUpRecyclerView(adapter)
 
         errorSnackbar = Snackbar.make(requireView(), "", Snackbar.LENGTH_INDEFINITE)
 
@@ -69,10 +69,12 @@ class LaunchListFragment : Fragment() {
         viewModel.loadLaunchesForEra(launchEra)
     }
 
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(adapter: LaunchAdapter) {
+        val layoutManager = LinearLayoutManager(requireContext())
+        adapter.scrollToTopOnItemInserted(layoutManager)
         binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = this@LaunchListFragment.adapter
+            this.layoutManager = layoutManager
+            this.adapter = adapter
         }
     }
 
