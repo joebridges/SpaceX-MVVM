@@ -6,7 +6,7 @@ import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 
 class LaunchViewHolder(
     private val binding: ViewHolderLaunchBinding
-): RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(launchListItem: LaunchListItem) {
         binding.launch = launchListItem
