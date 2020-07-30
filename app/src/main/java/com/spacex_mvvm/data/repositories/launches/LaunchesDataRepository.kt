@@ -5,11 +5,14 @@ import com.spacex_mvvm.data.database.launches.LaunchesDao
 import com.spacex_mvvm.data.mappers.launch.LaunchEntityMapper
 import com.spacex_mvvm.data.mappers.launch.LaunchesResponseMapper
 import com.spacex_mvvm.data.network.SpaceXService
+import com.spacex_mvvm.data.network.model.request.LaunchesRequestOptions
+import com.spacex_mvvm.data.network.model.response.LaunchResponseEntity
+import com.spacex_mvvm.data.network.model.response.LaunchesResponseEntity
 import com.spacex_mvvm.data.repositories.RateLimiter
 import com.spacex_mvvm.data.repositories.launches.model.Launch
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
-import com.spacex_mvvm.data.repositories.launches.model.getDefaultOrderQueryParam
-import com.spacex_mvvm.data.repositories.launches.model.toUrlPathParam
+import com.spacex_mvvm.data.repositories.launches.model.LaunchesDateOrder
+import com.spacex_mvvm.data.repositories.launches.model.toRequestString
 import com.spacex_mvvm.extensions.asErrorResource
 import com.spacex_mvvm.extensions.asSuccessResource
 import kotlinx.coroutines.flow.Flow
@@ -28,12 +31,13 @@ class LaunchesDataRepository @Inject constructor(
 ) : LaunchesRepository {
 
     override fun loadLaunches(
-        launchEra: LaunchEra,
+        era: LaunchEra,
+        order: LaunchesDateOrder,
         forceRefresh: Boolean
     ): Flow<Resource<List<Launch>>> {
-        val launches = observeLaunches(launchEra)
-        return if (shouldFetch(forceRefresh, launchEra)) {
-            updateLaunchesFromNetwork(launches, launchEra)
+        val launches = observeLaunches(era)
+        return if (shouldFetch(forceRefresh, era)) {
+            updateLaunchesFromNetwork(launches, era, order)
         } else {
             launches.asSuccessResource()
         }
@@ -41,13 +45,15 @@ class LaunchesDataRepository @Inject constructor(
 
     private fun updateLaunchesFromNetwork(
         launches: Flow<List<Launch>>,
-        launchEra: LaunchEra
+        launchEra: LaunchEra,
+        order: LaunchesDateOrder
     ): Flow<Resource<List<Launch>>> {
         return flow {
             emit(Resource.loading(launches.first()))
             try {
-                val remoteLaunches = fetchLaunches(launchEra)
-                storeLaunches(remoteLaunches)
+                val launchesResponse = fetchLaunches(launchEra, order)
+                val launchEntities = launchesResponseMapper.mapFromResponse(launchesResponse.launches)
+                launchesDao.insertLaunches(launchEntities)
                 emitAll(launches.asSuccessResource())
             } catch (e: Exception) {
                 emitAll(launches.asErrorResource(e.message))
@@ -58,26 +64,26 @@ class LaunchesDataRepository @Inject constructor(
     private fun shouldFetch(forceRefresh: Boolean, launchEra: LaunchEra) =
         forceRefresh || launchesRateLimiter.shouldFetch(launchEra)
 
-    private suspend fun fetchLaunches(era: LaunchEra): List<Launch> {
-        val response = spaceXService.getLaunches(
-            era.toUrlPathParam(),
-            era.getDefaultOrderQueryParam()
+    private suspend fun fetchLaunches(
+        era: LaunchEra,
+        orderBy: LaunchesDateOrder
+    ): LaunchesResponseEntity {
+        return spaceXService.getLaunches(
+            LaunchesRequestOptions.from(
+                upcoming = era == LaunchEra.UPCOMING,
+                orderBy = orderBy.toRequestString()
+            )
         )
-        return launchesResponseMapper.mapFromResponse(response)
     }
 
-    private suspend fun storeLaunches(launches: List<Launch>) {
-        val launchEntities = launches.map { launch -> launchEntityMapper.mapToEntity(launch) }
-        launchEntities.forEach { entity ->
-            launchesDao.insertLaunch(entity)
-        }
-    }
-
-    private fun observeLaunches(launchEra: LaunchEra): Flow<List<Launch>> {
-        return launchesDao.observeLaunches(launchEra == LaunchEra.UPCOMING).map { launchEntities ->
-            launchEntities.map { launchEntity ->
-                launchEntityMapper.mapFromEntity(launchEntity)
+    private fun observeLaunches(
+        launchEra: LaunchEra
+    ): Flow<List<Launch>> {
+        return launchesDao.observeLaunches(launchEra == LaunchEra.UPCOMING)
+            .map { launchEntities ->
+                launchEntities.map { launchEntity ->
+                    launchEntityMapper.mapFromEntity(launchEntity)
+                }
             }
-        }
     }
 }

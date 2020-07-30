@@ -10,7 +10,7 @@ import com.spacex_mvvm.data.database.launches.LaunchesDao
 import com.spacex_mvvm.data.mappers.launch.LaunchEntityMapper
 import com.spacex_mvvm.data.mappers.launch.LaunchesResponseMapper
 import com.spacex_mvvm.data.network.SpaceXService
-import com.spacex_mvvm.data.network.model.LaunchResponseEntity
+import com.spacex_mvvm.data.network.model.response.LaunchResponseEntity
 import com.spacex_mvvm.data.repositories.RateLimiter
 import com.spacex_mvvm.data.repositories.launches.model.Launch
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra

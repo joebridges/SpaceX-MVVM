@@ -3,6 +3,7 @@ package com.spacex_mvvm.features.launchlist.model
 import android.annotation.SuppressLint
 import android.content.Context
 import com.spacex_mvvm.R
+import com.spacex_mvvm.data.repositories.launches.model.LaunchDatePrecision
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -23,12 +24,8 @@ class LaunchDateFormatter @Inject constructor(
     private val tentativeDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM)
     private val tbdDateFormat = SimpleDateFormat(TBD_DATE_FORMAT, Locale.getDefault())
 
-    fun formatLaunchDate(utcDate: String, isDateTbd: Boolean, isDateTentative: Boolean): String {
-        return when {
-            isDateTbd -> formatAsTbdDate(utcDate)
-            isDateTentative -> formatAsTentativeDate(utcDate)
-            else -> formatAsShortDateString(utcDate)
-        }
+    fun formatLaunchDate(utcDate: String, isDateTbd: Boolean, datePrecision: LaunchDatePrecision): String {
+        return formatAsShortDateString(utcDate)
     }
 
     private fun formatAsTbdDate(utcDate: String): String {

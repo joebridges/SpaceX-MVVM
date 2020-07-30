@@ -1,49 +1,29 @@
 package com.spacex_mvvm.data.mappers.launch
 
+import com.spacex_mvvm.data.database.launches.LaunchEntity
 import com.spacex_mvvm.data.mappers.NetworkResponseMapper
-import com.spacex_mvvm.data.repositories.launches.model.Launch
-import com.spacex_mvvm.data.repositories.launches.model.Rocket
-import com.spacex_mvvm.data.repositories.launches.model.Site
+import com.spacex_mvvm.data.network.model.response.LaunchResponseEntity
 import javax.inject.Inject
-import com.spacex_mvvm.data.network.model.LaunchResponseEntity as NetworkLaunch
-import com.spacex_mvvm.data.network.model.RocketResponseEntity as NetworkRocket
-import com.spacex_mvvm.data.network.model.SiteResponseEntity as NetworkSite
 
 class LaunchesResponseMapper @Inject constructor() :
-    NetworkResponseMapper<List<NetworkLaunch>, List<Launch>> {
+    NetworkResponseMapper<List<LaunchResponseEntity>, List<LaunchEntity>> {
 
-    override fun mapFromResponse(response: List<NetworkLaunch>): List<Launch> {
+    override fun mapFromResponse(response: List<LaunchResponseEntity>): List<LaunchEntity> {
         return response.map { launch ->
             with(launch) {
-                Launch(
+                LaunchEntity(
                     id,
                     missionName,
                     launchDateUtc,
+                    launchDateUnix,
+                    launchDatePrecision,
                     isUpcoming,
                     isLaunchDateTbd,
-                    isLaunchDateTentative,
-                    links.missionPatch,
-                    getLaunchImageUrl(launch),
-                    mapRocket(rocket),
-                    mapSite(site)
+                    links.patch.small,
+                    rocketId,
+                    launchpadId
                 )
             }
         }
-    }
-
-    private fun mapRocket(rocket: NetworkRocket): Rocket {
-        return with(rocket) {
-            Rocket(id, name, type)
-        }
-    }
-
-    private fun mapSite(site: NetworkSite): Site {
-        return with(site) {
-            Site(id, name)
-        }
-    }
-
-    private fun getLaunchImageUrl(launch: NetworkLaunch): String? {
-        return launch.links.images.firstOrNull()
     }
 }

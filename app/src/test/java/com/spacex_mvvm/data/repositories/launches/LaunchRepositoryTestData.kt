@@ -4,10 +4,10 @@ import com.spacex_mvvm.data.database.launches.LaunchEntity
 import com.spacex_mvvm.data.database.launches.LaunchWithRocketAndSite
 import com.spacex_mvvm.data.database.rockets.RocketEntity
 import com.spacex_mvvm.data.database.sites.SiteEntity
-import com.spacex_mvvm.data.network.model.LaunchResponseEntity
-import com.spacex_mvvm.data.network.model.LinksResponseEntity
-import com.spacex_mvvm.data.network.model.RocketResponseEntity
-import com.spacex_mvvm.data.network.model.SiteResponseEntity
+import com.spacex_mvvm.data.network.model.response.LaunchResponseEntity
+import com.spacex_mvvm.data.network.model.response.LaunchLinksResponseEntity
+import com.spacex_mvvm.data.network.model.response.RocketResponseEntity
+import com.spacex_mvvm.data.network.model.response.SiteResponseEntity
 import com.spacex_mvvm.data.repositories.launches.model.Launch
 import com.spacex_mvvm.data.repositories.launches.model.Rocket
 import com.spacex_mvvm.data.repositories.launches.model.Site
@@ -55,8 +55,17 @@ object LaunchRepositoryTestData {
 
     fun createLaunchResponseEntitiesWithIds(ids: List<String>): List<LaunchResponseEntity> {
         return ids.map { id ->
-            val rocket = RocketResponseEntity(id, "", "")
-            val site = SiteResponseEntity(id, "")
+            val rocket =
+                RocketResponseEntity(
+                    id,
+                    "",
+                    ""
+                )
+            val site =
+                SiteResponseEntity(
+                    id,
+                    ""
+                )
             LaunchResponseEntity(
                 id,
                 "",
@@ -66,7 +75,10 @@ object LaunchRepositoryTestData {
                 false,
                 rocket,
                 site,
-                LinksResponseEntity("", listOf())
+                LaunchLinksResponseEntity(
+                    "",
+                    listOf()
+                )
             )
         }
     }

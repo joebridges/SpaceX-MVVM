@@ -4,11 +4,14 @@ data class Launch(
     val id: String,
     val missionName: String,
     val launchDateUtc: String,
+    val launchDatePrecision: LaunchDatePrecision,
     val isUpcoming: Boolean,
     val isLaunchDateTbd: Boolean,
-    val isLaunchDateTentative: Boolean,
     val missionPatchImageUrl: String?,
-    val launchImageUrl: String?,
-    val rocket: Rocket,
-    val site: Site
+    val rocketId: String,
+    val launchPadId: String
 )
+
+enum class LaunchDatePrecision {
+    YEAR, HALF, QUARTER, MONTH, DAY, HOUR, UNKNOWN
+}
