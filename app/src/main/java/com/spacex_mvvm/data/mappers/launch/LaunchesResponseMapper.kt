@@ -15,7 +15,6 @@ class LaunchesResponseMapper @Inject constructor() :
                     id,
                     missionName,
                     launchDateUtc,
-                    launchDateUnix,
                     launchDatePrecision,
                     isUpcoming,
                     isLaunchDateTbd,

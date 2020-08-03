@@ -1,6 +1,6 @@
 package com.spacex_mvvm.data.repositories.launches.model
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class LaunchEraTest {

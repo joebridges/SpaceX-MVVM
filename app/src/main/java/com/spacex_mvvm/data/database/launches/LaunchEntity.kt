@@ -8,7 +8,6 @@ data class LaunchEntity(
     @PrimaryKey val id: String,
     val missionName: String,
     val launchDateUtc: String,
-    val launchDateUnix: String,
     val launchDatePrecision: String,
     val isUpcoming: Boolean,
     val isLaunchDateTbd: Boolean,

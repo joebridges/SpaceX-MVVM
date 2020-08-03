@@ -13,7 +13,7 @@ class LaunchListItemsMapper @Inject constructor(
                     id,
                     missionPatchImageUrl,
                     missionName,
-                    dateFormatter.formatLaunchDate(launchDateUtc, isLaunchDateTbd, launchDatePrecision)
+                    dateFormatter.formatLaunchDate(launchDateUtc, launchDatePrecision)
                 )
             }
         } ?: emptyList()

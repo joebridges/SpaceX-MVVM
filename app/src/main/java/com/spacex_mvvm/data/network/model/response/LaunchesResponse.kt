@@ -10,7 +10,6 @@ data class LaunchResponseEntity(
     @field:Json(name = "id") val id: String,
     @field:Json(name = "name") val missionName: String,
     @field:Json(name = "date_utc") val launchDateUtc: String,
-    @field:Json(name = "date_unix") val launchDateUnix: String,
     @field:Json(name = "date_precision") val launchDatePrecision: String,
     @field:Json(name = "upcoming") val isUpcoming: Boolean,
     @field:Json(name = "tbd") val isLaunchDateTbd: Boolean,
