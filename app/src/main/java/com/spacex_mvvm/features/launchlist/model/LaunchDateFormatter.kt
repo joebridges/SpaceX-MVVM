@@ -7,7 +7,9 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import javax.inject.Inject
 
-class LaunchDateFormatter @Inject constructor() {
+class LaunchDateFormatter @Inject constructor(
+    private val halfDateFormatter: YearHalfDateFormatter
+) {
 
     private val shortDateTimeFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
     private val shortDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
@@ -26,7 +28,7 @@ class LaunchDateFormatter @Inject constructor() {
             val utcLaunchDateTime = Instant.parse(utcDate).atZone(ZoneId.of(UTC_TIME_ZONE))
             when (datePrecision) {
                 LaunchDatePrecision.YEAR -> yearFormat.format(utcLaunchDateTime)
-                LaunchDatePrecision.HALF -> yearFormat.format(utcLaunchDateTime)
+                LaunchDatePrecision.HALF -> halfDateFormatter.format(utcLaunchDateTime)
                 LaunchDatePrecision.QUARTER -> quarterFormat.format(utcLaunchDateTime)
                 LaunchDatePrecision.MONTH -> monthFormat.format(utcLaunchDateTime)
                 else -> shortDateFormat.format(utcLaunchDateTime)

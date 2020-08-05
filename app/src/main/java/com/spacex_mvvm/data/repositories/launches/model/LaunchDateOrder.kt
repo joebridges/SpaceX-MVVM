@@ -5,7 +5,7 @@ enum class LaunchesDateOrder {
 }
 
 fun LaunchesDateOrder.toRequestString(): String {
-    return when(this) {
+    return when (this) {
         LaunchesDateOrder.ASCENDING -> "asc"
         LaunchesDateOrder.DESCENDING -> "desc"
     }

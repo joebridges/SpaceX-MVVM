@@ -5,7 +5,6 @@
     <string name="upcoming_launches">Upcoming Launches</string>
     <string name="past_launches">Completed Launches</string>
 
-    <string name="date_tbd">(Date TBD)</string>
-    <string name="time_tbd">(Time TBD)</string>
+    <string name="year_half_prefix">H</string>
 
 </resources>
