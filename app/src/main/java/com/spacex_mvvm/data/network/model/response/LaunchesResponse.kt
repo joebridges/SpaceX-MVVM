@@ -26,14 +26,3 @@ data class PatchLinksResponseEntity(
     @field:Json(name = "small") val small: String?,
     @field:Json(name = "large") val large: String?
 )
-
-data class RocketResponseEntity(
-    @field:Json(name = "rocket_id") val id: String,
-    @field:Json(name = "rocket_name") val name: String,
-    @field:Json(name = "rocket_type") val type: String
-)
-
-data class SiteResponseEntity(
-    @field:Json(name = "site_id") val id: String,
-    @field:Json(name = "site_name") val name: String
-)

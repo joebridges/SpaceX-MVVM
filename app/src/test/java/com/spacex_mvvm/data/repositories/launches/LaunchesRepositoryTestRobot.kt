@@ -74,7 +74,7 @@ class LaunchesRepositoryTestRobot {
         runBlocking {
             whenever(
                 mockSpaceXService.getLaunches(
-                    LaunchesRequestOptions.from(
+                    LaunchesRequestOptions.create(
                         expectedIsUpcoming,
                         expectedOrder
                     )
@@ -94,7 +94,7 @@ class LaunchesRepositoryTestRobot {
     ) {
         runBlocking {
             verify(mockSpaceXService).getLaunches(
-                LaunchesRequestOptions.from(
+                LaunchesRequestOptions.create(
                     expectedIsUpcoming,
                     expectedOrder
                 )

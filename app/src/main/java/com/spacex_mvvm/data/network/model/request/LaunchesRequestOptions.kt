@@ -7,7 +7,7 @@ data class LaunchesRequestOptions private constructor(
     @field:Json(name = "options") val options: Options
 ) {
     companion object {
-        fun from(upcoming: Boolean, orderBy: String): LaunchesRequestOptions {
+        fun create(upcoming: Boolean, orderBy: String): LaunchesRequestOptions {
             return LaunchesRequestOptions(
                 Query(upcoming),
                 Options(Sort(orderBy), pagination = false)

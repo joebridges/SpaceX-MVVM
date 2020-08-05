@@ -68,7 +68,7 @@ class LaunchesDataRepository @Inject constructor(
         orderBy: LaunchesDateOrder
     ): LaunchesResponseEntity {
         return spaceXService.getLaunches(
-            LaunchesRequestOptions.from(
+            LaunchesRequestOptions.create(
                 upcoming = era == LaunchEra.UPCOMING,
                 orderBy = orderBy.toRequestString()
             )
