@@ -67,28 +67,4 @@ class LaunchListRobot {
             )
         )
     }
-
-    fun verifySiteName(expectedSiteName: String, position: Int) {
-        onView(withId(R.id.recyclerView)).check(
-            matches(
-                atPosition(
-                    position,
-                    R.id.siteName,
-                    withText(expectedSiteName)
-                )
-            )
-        )
-    }
-
-    fun verifyRocketName(expectedRocketName: String, position: Int) {
-        onView(withId(R.id.recyclerView)).check(
-            matches(
-                atPosition(
-                    position,
-                    R.id.rocketName,
-                    withText(expectedRocketName)
-                )
-            )
-        )
-    }
 }

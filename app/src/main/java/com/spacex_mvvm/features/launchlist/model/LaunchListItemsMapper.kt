@@ -13,19 +13,9 @@ class LaunchListItemsMapper @Inject constructor(
                     id,
                     missionPatchImageUrl,
                     missionName,
-                    getFormattedLaunchDate(launchDateUtc, isLaunchDateTbd, isLaunchDateTentative),
-                    site.siteName,
-                    rocket.name
+                    dateFormatter.formatLaunchDate(launchDateUtc, launchDatePrecision)
                 )
             }
         } ?: emptyList()
-    }
-
-    private fun getFormattedLaunchDate(
-        utcDate: String,
-        isLaunchDateTbd: Boolean,
-        isLaunchDateTentative: Boolean
-    ): String {
-        return dateFormatter.formatLaunchDate(utcDate, isLaunchDateTbd, isLaunchDateTentative)
     }
 }

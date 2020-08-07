@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -16,8 +15,6 @@ import com.spacex_mvvm.databinding.FragmentLaunchListBinding
 import com.spacex_mvvm.extensions.scrollToTopOnItemInserted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_launch_list.*
-import java.lang.IllegalArgumentException
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LaunchListFragment : Fragment() {

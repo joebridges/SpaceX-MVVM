@@ -27,12 +27,4 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideLaunchesDao(appDatabase: AppDatabase) = appDatabase.getLaunchesDao()
-
-    @Singleton
-    @Provides
-    fun provideRocketsDao(appDatabase: AppDatabase) = appDatabase.getRocketsDao()
-
-    @Singleton
-    @Provides
-    fun provideSitesDao(appDatabase: AppDatabase) = appDatabase.getSitesDao()
 }

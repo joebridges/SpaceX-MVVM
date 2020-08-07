@@ -8,9 +8,9 @@ import com.spacex_mvvm.data.Resource
 import com.spacex_mvvm.data.repositories.di.RepositoriesModule
 import com.spacex_mvvm.data.repositories.launches.LaunchesRepository
 import com.spacex_mvvm.data.repositories.launches.model.Launch
+import com.spacex_mvvm.data.repositories.launches.model.LaunchDatePrecision
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
-import com.spacex_mvvm.data.repositories.launches.model.Rocket
-import com.spacex_mvvm.data.repositories.launches.model.Site
+import com.spacex_mvvm.data.repositories.launches.model.LaunchesDateOrder
 import com.spacex_mvvm.features.launchlist.view.LaunchListFragment
 import com.spacex_mvvm.test.HiltEmptyFragmentActivity
 import dagger.hilt.android.testing.BindValue
@@ -44,12 +44,14 @@ class LaunchListTests {
     fun testSwipeToRefresh() {
         returnDataFromRepository(
             expectedLaunchEra = LaunchEra.UPCOMING,
+            expectedOrder = LaunchesDateOrder.ASCENDING,
             expectedForceRefresh = false,
             dataToReturn = Resource.success(emptyList())
         )
 
         returnDataFromRepository(
             expectedLaunchEra = LaunchEra.UPCOMING,
+            expectedOrder = LaunchesDateOrder.ASCENDING,
             expectedForceRefresh = true,
             dataToReturn = Resource.loading(emptyList())
         )
@@ -67,6 +69,7 @@ class LaunchListTests {
     fun testIsLoading() {
         returnDataFromRepository(
             expectedLaunchEra = LaunchEra.UPCOMING,
+            expectedOrder = LaunchesDateOrder.ASCENDING,
             expectedForceRefresh = false,
             dataToReturn = Resource.loading(null)
         )
@@ -84,13 +87,12 @@ class LaunchListTests {
     fun testIsLoadingWithData() {
         returnDataFromRepository(
             expectedLaunchEra = LaunchEra.UPCOMING,
+            expectedOrder = LaunchesDateOrder.ASCENDING,
             expectedForceRefresh = false,
             dataToReturn = Resource.loading(
                 listOf(
                     createLaunch(
                         missionName = "Starlink 7",
-                        rocketName = "Falcon 9",
-                        siteName = "CCAFS SLC 40",
                         launchDateUtc = "2020-06-04T01:25:00.000Z"
                     )
                 )
@@ -103,9 +105,7 @@ class LaunchListTests {
             verifyIsRefreshing()
 
             verifyMissionName("Starlink 7", 0)
-            verifyRocketName("Falcon 9", 0)
-            verifySiteName("CCAFS SLC 40", 0)
-            verifyLaunchDate("Jun 4, 2020 2:25 AM", 0)
+            verifyLaunchDate("Jun 4, 2020, 2:25 AM", 0)
 
             verifySnackbarIsNotVisible()
         }
@@ -115,6 +115,7 @@ class LaunchListTests {
     fun testErrorMessage() {
         returnDataFromRepository(
             expectedLaunchEra = LaunchEra.UPCOMING,
+            expectedOrder = LaunchesDateOrder.ASCENDING,
             expectedForceRefresh = false,
             dataToReturn = Resource.error("An Unexpected Error Occurred", null)
         )
@@ -132,14 +133,13 @@ class LaunchListTests {
     fun testErrorMessageWithData() {
         returnDataFromRepository(
             expectedLaunchEra = LaunchEra.UPCOMING,
+            expectedOrder = LaunchesDateOrder.ASCENDING,
             expectedForceRefresh = false,
             dataToReturn = Resource.error(
                 "An Unexpected Error Occurred",
                 listOf(
                     createLaunch(
                         missionName = "Starlink 7",
-                        rocketName = "Falcon 9",
-                        siteName = "CCAFS SLC 40",
                         launchDateUtc = "2020-06-04T01:25:00.000Z"
                     )
                 )
@@ -152,9 +152,7 @@ class LaunchListTests {
             verifyIsNotRefreshing()
 
             verifyMissionName("Starlink 7", 0)
-            verifyRocketName("Falcon 9", 0)
-            verifySiteName("CCAFS SLC 40", 0)
-            verifyLaunchDate("Jun 4, 2020 2:25 AM", 0)
+            verifyLaunchDate("Jun 4, 2020, 2:25 AM", 0)
 
             verifySnackbarText("An Unexpected Error Occurred")
         }
@@ -164,13 +162,12 @@ class LaunchListTests {
     fun testSuccess() {
         returnDataFromRepository(
             expectedLaunchEra = LaunchEra.UPCOMING,
+            expectedOrder = LaunchesDateOrder.ASCENDING,
             expectedForceRefresh = false,
             dataToReturn = Resource.success(
                 listOf(
                     createLaunch(
                         missionName = "Starlink 7",
-                        rocketName = "Falcon 9",
-                        siteName = "CCAFS SLC 40",
                         launchDateUtc = "2020-06-04T01:25:00.000Z"
                     )
                 )
@@ -183,9 +180,7 @@ class LaunchListTests {
             verifyIsNotRefreshing()
 
             verifyMissionName("Starlink 7", 0)
-            verifyRocketName("Falcon 9", 0)
-            verifySiteName("CCAFS SLC 40", 0)
-            verifyLaunchDate("Jun 4, 2020 2:25 AM", 0)
+            verifyLaunchDate("Jun 4, 2020, 2:25 AM", 0)
 
             verifySnackbarIsNotVisible()
         }
@@ -200,10 +195,17 @@ class LaunchListTests {
 
     private fun returnDataFromRepository(
         expectedLaunchEra: LaunchEra,
+        expectedOrder: LaunchesDateOrder,
         expectedForceRefresh: Boolean,
         dataToReturn: Resource<List<Launch>>
     ) {
-        whenever(mockRepository.loadLaunches(expectedLaunchEra, expectedForceRefresh)).thenReturn(
+        whenever(
+            mockRepository.loadLaunches(
+                expectedLaunchEra,
+                expectedOrder,
+                expectedForceRefresh
+            )
+        ).thenReturn(
             flowOf(dataToReturn)
         )
     }
@@ -212,25 +214,23 @@ class LaunchListTests {
         id: String = "",
         missionName: String = "",
         launchDateUtc: String = "",
+        launchDatePrecision: LaunchDatePrecision = LaunchDatePrecision.HOUR,
         isUpcoming: Boolean = false,
         isLaunchDateTbc: Boolean = false,
-        isLaunchDateTentative: Boolean = false,
         missionPatchUrl: String = "",
-        launchImageUrl: String = "",
-        rocketName: String = "",
-        siteName: String = ""
+        rocketId: String = "",
+        launchPadId: String = ""
     ): Launch {
         return Launch(
             id,
             missionName,
             launchDateUtc,
+            launchDatePrecision,
             isUpcoming,
             isLaunchDateTbc,
-            isLaunchDateTentative,
             missionPatchUrl,
-            launchImageUrl,
-            Rocket("", rocketName, ""),
-            Site("", siteName)
+            rocketId,
+            launchPadId
         )
     }
 }
