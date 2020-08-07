@@ -8,7 +8,7 @@ import java.time.format.FormatStyle
 import javax.inject.Inject
 
 class LaunchDateFormatter @Inject constructor(
-    private val halfDateFormatter: YearHalfDateFormatter
+    private val yearHalfDateFormatter: YearHalfDateFormatter
 ) {
 
     private val shortDateTimeFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
@@ -21,14 +21,14 @@ class LaunchDateFormatter @Inject constructor(
         utcDate: String,
         datePrecision: LaunchDatePrecision
     ): String {
-        return if (shouldAdjustToLocalDateTime(datePrecision)) {
+        return if (shouldConvertToLocalDateTime(datePrecision)) {
             val localLaunchDateTime = Instant.parse(utcDate).atZone(ZoneId.systemDefault())
             shortDateTimeFormat.format(localLaunchDateTime)
         } else {
             val utcLaunchDateTime = Instant.parse(utcDate).atZone(ZoneId.of(UTC_TIME_ZONE))
             when (datePrecision) {
                 LaunchDatePrecision.YEAR -> yearFormat.format(utcLaunchDateTime)
-                LaunchDatePrecision.HALF -> halfDateFormatter.format(utcLaunchDateTime)
+                LaunchDatePrecision.HALF -> yearHalfDateFormatter.format(utcLaunchDateTime)
                 LaunchDatePrecision.QUARTER -> quarterFormat.format(utcLaunchDateTime)
                 LaunchDatePrecision.MONTH -> monthFormat.format(utcLaunchDateTime)
                 else -> shortDateFormat.format(utcLaunchDateTime)
@@ -39,7 +39,7 @@ class LaunchDateFormatter @Inject constructor(
     // Only convert to local time if date precision is set as an hour because lesser precisions such as
     // month are defined as midnight on the first day of the month so conversion to a local date time
     // can cause the date and therefore the month to change and become incorrect
-    private fun shouldAdjustToLocalDateTime(datePrecision: LaunchDatePrecision) =
+    private fun shouldConvertToLocalDateTime(datePrecision: LaunchDatePrecision) =
         datePrecision == LaunchDatePrecision.HOUR || datePrecision == LaunchDatePrecision.UNKNOWN
 
     companion object {

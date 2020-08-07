@@ -29,15 +29,14 @@ class LaunchEntityMapper @Inject constructor() : EntityMapper<LaunchEntity, Laun
     }
 
     private fun mapLaunchDatePrecision(precision: String): LaunchDatePrecision {
-        return LaunchDatePrecision.HALF
-//        return when (precision) {
-//            "year" -> LaunchDatePrecision.YEAR
-//            "half" -> LaunchDatePrecision.HALF
-//            "quarter" -> LaunchDatePrecision.QUARTER
-//            "month" -> LaunchDatePrecision.MONTH
-//            "day" -> LaunchDatePrecision.DAY
-//            "hour" -> LaunchDatePrecision.HOUR
-//            else -> LaunchDatePrecision.UNKNOWN
-//        }
+        return when (precision) {
+            "year" -> LaunchDatePrecision.YEAR
+            "half" -> LaunchDatePrecision.HALF
+            "quarter" -> LaunchDatePrecision.QUARTER
+            "month" -> LaunchDatePrecision.MONTH
+            "day" -> LaunchDatePrecision.DAY
+            "hour" -> LaunchDatePrecision.HOUR
+            else -> LaunchDatePrecision.UNKNOWN
+        }
     }
 }
