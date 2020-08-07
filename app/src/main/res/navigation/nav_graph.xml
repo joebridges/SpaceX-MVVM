@@ -21,4 +21,8 @@
             android:defaultValue="past"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.spacex_mvvm.features.settings.view.SettingsFragment"
+        android:label="@string/settings" />
 </navigation>

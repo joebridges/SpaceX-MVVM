@@ -51,6 +51,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycle"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
     implementation "com.google.dagger:hilt-android:$versions.daggerHilt"
+    implementation 'androidx.preference:preference:1.1.1'
     kapt "com.google.dagger:hilt-android-compiler:$versions.daggerHilt"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.daggerHiltAndroidx"
     kapt "androidx.hilt:hilt-compiler:$versions.daggerHiltAndroidx"

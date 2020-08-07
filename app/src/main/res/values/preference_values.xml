@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_preference_default_value">battery_saver</string>
+
+    <string name="theme_preference_light_value">light</string>
+    <string name="theme_preference_dark_value">dark</string>
+    <string name="theme_preference_battery_saver_value">battery_saver</string>
+    <string name="theme_preference_system_default_value">system_default</string>
+</resources>
