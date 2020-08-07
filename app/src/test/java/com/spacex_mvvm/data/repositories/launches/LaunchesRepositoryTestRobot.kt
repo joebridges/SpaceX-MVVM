@@ -5,12 +5,14 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import com.spacex_mvvm.data.database.launches.LaunchWithRocketAndSite
+import com.spacex_mvvm.data.database.launches.LaunchEntity
 import com.spacex_mvvm.data.database.launches.LaunchesDao
 import com.spacex_mvvm.data.mappers.launch.LaunchEntityMapper
 import com.spacex_mvvm.data.mappers.launch.LaunchesResponseMapper
 import com.spacex_mvvm.data.network.SpaceXService
-import com.spacex_mvvm.data.network.model.LaunchResponseEntity
+import com.spacex_mvvm.data.network.model.request.LaunchesRequestOptions
+import com.spacex_mvvm.data.network.model.response.LaunchResponseEntity
+import com.spacex_mvvm.data.network.model.response.LaunchesResponseEntity
 import com.spacex_mvvm.data.repositories.RateLimiter
 import com.spacex_mvvm.data.repositories.launches.model.Launch
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
@@ -47,7 +49,7 @@ class LaunchesRepositoryTestRobot {
     }
 
     fun mockDatabaseEntityMapper(
-        expectedEntites: List<LaunchWithRocketAndSite>,
+        expectedEntites: List<LaunchEntity>,
         mappedEntities: List<Launch>
     ) {
         expectedEntites.forEachIndexed { index, entity ->
@@ -57,36 +59,52 @@ class LaunchesRepositoryTestRobot {
 
     fun mockResponseMapper(
         expectedResponseEntities: List<LaunchResponseEntity>,
-        launches: List<Launch>
+        launches: List<LaunchEntity>
     ) {
-        whenever(mockLaunchesResponseMapper.mapFromResponse(expectedResponseEntities)).thenReturn(launches)
+        whenever(mockLaunchesResponseMapper.mapFromResponse(expectedResponseEntities)).thenReturn(
+            launches
+        )
     }
 
     fun mockNetworkResponse(
-        expectedLaunchEra: String,
+        expectedIsUpcoming: Boolean,
         expectedOrder: String,
-        response: List<LaunchResponseEntity>
+        response: LaunchesResponseEntity
     ) {
         runBlocking {
-            whenever(mockSpaceXService.getLaunches(expectedLaunchEra, expectedOrder))
+            whenever(
+                mockSpaceXService.getLaunches(
+                    LaunchesRequestOptions.create(
+                        expectedIsUpcoming,
+                        expectedOrder
+                    )
+                )
+            )
                 .thenReturn(response)
         }
     }
 
     fun verifyLaunchesAreNotFetchedFromNetwork() = runBlocking {
-        verify(mockSpaceXService, never()).getLaunches(any(), any())
+        verify(mockSpaceXService, never()).getLaunches(any())
     }
 
     fun verifyLaunchesAreFetchedFromNetwork(
-        expectedEra: String,
+        expectedIsUpcoming: Boolean,
         expectedOrder: String
     ) {
-        runBlocking {  verify(mockSpaceXService).getLaunches(expectedEra, expectedOrder) }
+        runBlocking {
+            verify(mockSpaceXService).getLaunches(
+                LaunchesRequestOptions.create(
+                    expectedIsUpcoming,
+                    expectedOrder
+                )
+            )
+        }
     }
 
     fun returnLaunchesFromDatabaseWhenObserveLaunches(
         isUpcomingLaunches: Boolean,
-        launches: List<LaunchWithRocketAndSite>
+        launches: List<LaunchEntity>
     ) {
         whenever(mockLaunchesDao.observeLaunches(isUpcomingLaunches)).thenReturn(flowOf(launches))
     }

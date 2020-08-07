@@ -86,58 +86,10 @@
                 android:layout_marginStart="@dimen/launch_list_detail_margin"
                 android:text="@{launch.localDate}"
                 app:layout_constraintBottom_toBottomOf="@id/launchDateIcon"
-                app:layout_constraintEnd_toStartOf="@id/siteIcon"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/launchDateIcon"
                 app:layout_constraintTop_toTopOf="@id/launchDateIcon"
                 tools:text="20/2/20 18:49" />
-
-            <ImageView
-                android:id="@+id/siteIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/launch_list_icon_margin"
-                android:src="@drawable/ic_location"
-                app:layout_constraintBottom_toBottomOf="@id/launchDate"
-                app:layout_constraintEnd_toStartOf="@id/siteName"
-                app:layout_constraintStart_toEndOf="@id/launchDate"
-                app:layout_constraintTop_toTopOf="@id/launchDate" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/siteName"
-                style="@style/CaptionOnSurface"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/launch_list_detail_margin"
-                android:text="@{launch.siteName}"
-                app:layout_constraintBottom_toBottomOf="@id/siteIcon"
-                app:layout_constraintEnd_toStartOf="@id/rocketIcon"
-                app:layout_constraintStart_toEndOf="@id/siteIcon"
-                app:layout_constraintTop_toTopOf="@id/siteIcon"
-                tools:text="KSC LC 39A" />
-
-            <ImageView
-                android:id="@+id/rocketIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/launch_list_icon_margin"
-                android:src="@drawable/ic_rocket"
-                app:layout_constraintBottom_toBottomOf="@id/siteName"
-                app:layout_constraintEnd_toStartOf="@id/rocketName"
-                app:layout_constraintStart_toEndOf="@id/siteName"
-                app:layout_constraintTop_toTopOf="@id/siteName" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/rocketName"
-                style="@style/CaptionOnSurface"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/launch_list_detail_margin"
-                android:text="@{launch.rocketName}"
-                app:layout_constraintBottom_toBottomOf="@id/rocketIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/rocketIcon"
-                app:layout_constraintTop_toTopOf="@id/rocketIcon"
-                tools:text="Falcon 9" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

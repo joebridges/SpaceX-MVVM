@@ -1,58 +1,42 @@
 package com.spacex_mvvm.data.mappers.launch
 
 import com.spacex_mvvm.data.database.launches.LaunchEntity
-import com.spacex_mvvm.data.database.launches.LaunchWithRocketAndSite
 import com.spacex_mvvm.data.mappers.EntityMapper
-import com.spacex_mvvm.data.mappers.rocket.RocketEntityMapper
-import com.spacex_mvvm.data.mappers.site.SiteEntityMapper
 import com.spacex_mvvm.data.repositories.launches.model.Launch
+import com.spacex_mvvm.data.repositories.launches.model.LaunchDatePrecision
 import javax.inject.Inject
 
-class LaunchEntityMapper @Inject constructor(
-    private val rocketMapper: RocketEntityMapper,
-    private val siteMapper: SiteEntityMapper
-) : EntityMapper<LaunchWithRocketAndSite, Launch> {
+class LaunchEntityMapper @Inject constructor() : EntityMapper<LaunchEntity, Launch> {
 
-    override fun mapToEntity(model: Launch): LaunchWithRocketAndSite {
-        val launchEntity = with(model) {
-            LaunchEntity(
-                id,
-                missionName,
-                launchDateUtc,
-                isUpcoming,
-                isLaunchDateTbd,
-                isLaunchDateTentative,
-                missionPatchImageUrl,
-                launchImageUrl,
-                rocket.id,
-                site.id
-            )
-        }
-        val rocketEntity = rocketMapper.mapToEntity(model.rocket)
-        val siteEntity = siteMapper.mapToEntity(model.site)
-        return LaunchWithRocketAndSite(
-            launchEntity,
-            rocketEntity,
-            siteEntity
-        )
+    override fun mapToEntity(model: Launch): LaunchEntity {
+        throw NotImplementedError()
     }
 
-    override fun mapFromEntity(entity: LaunchWithRocketAndSite): Launch {
-        val rocket = rocketMapper.mapFromEntity(entity.rocket)
-        val site = siteMapper.mapFromEntity(entity.site)
-        return with(entity.launch) {
-            Launch(
+    override fun mapFromEntity(entity: LaunchEntity): Launch {
+        with(entity) {
+            return Launch(
                 id,
                 missionName,
                 launchDateUtc,
+                mapLaunchDatePrecision(launchDatePrecision),
                 isUpcoming,
                 isLaunchDateTbd,
-                isLaunchDateTentative,
                 missionPatchImageUrl,
-                launchImageUrl,
-                rocket,
-                site
+                rocketId,
+                launchPadId
             )
+        }
+    }
+
+    private fun mapLaunchDatePrecision(precision: String): LaunchDatePrecision {
+        return when (precision) {
+            "year" -> LaunchDatePrecision.YEAR
+            "half" -> LaunchDatePrecision.HALF
+            "quarter" -> LaunchDatePrecision.QUARTER
+            "month" -> LaunchDatePrecision.MONTH
+            "day" -> LaunchDatePrecision.DAY
+            "hour" -> LaunchDatePrecision.HOUR
+            else -> LaunchDatePrecision.UNKNOWN
         }
     }
 }

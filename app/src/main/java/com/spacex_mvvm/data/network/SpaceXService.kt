@@ -1,18 +1,14 @@
 package com.spacex_mvvm.data.network
 
-import com.spacex_mvvm.data.network.model.LaunchResponseEntity
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.spacex_mvvm.data.network.model.request.LaunchesRequestOptions
+import com.spacex_mvvm.data.network.model.response.LaunchesResponseEntity
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface SpaceXService {
 
-    @GET("launches/{launchEra}")
-    suspend fun getLaunches(
-        @Path("launchEra") launchEra: String,
-        @Query("order") order: String
-    ): List<LaunchResponseEntity>
-
+    @POST("launches/query")
+    suspend fun getLaunches(@Body requestOptions: LaunchesRequestOptions): LaunchesResponseEntity
 
     companion object {
         const val UPCOMING_LAUNCH_PATH = "upcoming"

@@ -17,7 +17,7 @@ class NetworkModule {
     @Provides
     fun provideSpaceXService(): SpaceXService {
         return Retrofit.Builder()
-            .baseUrl("https://api.spacexdata.com/v3/")
+            .baseUrl("https://api.spacexdata.com/v4/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(SpaceXService::class.java)

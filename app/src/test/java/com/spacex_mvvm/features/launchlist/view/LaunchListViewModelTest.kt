@@ -1,12 +1,12 @@
 package com.spacex_mvvm.features.launchlist.view
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.spacex_mvvm.data.Resource
 import com.spacex_mvvm.features.launchlist.model.LaunchListItem
-import org.junit.Test
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.spacex_mvvm.rules.MainCoroutineRule
-import org.junit.rules.TestRule
 import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.TestRule
 
 class LaunchListViewModelTest {
 
@@ -95,17 +95,13 @@ class LaunchListViewModelTest {
                 "1",
                 "imageurl.com",
                 "starlink",
-                "",
-                "KSC LC 39A",
-                "Falcon 9"
+                "Q4 2020"
             ),
             LaunchListItem(
                 "2",
                 "imageurl.com",
                 "in flight abort",
-                "",
-                "KSC LC 39A",
-                "Falcon 9"
+                "Q4 2020"
             )
         )
     }
