@@ -22,5 +22,7 @@
 
         <item name="android:windowLightStatusBar">@bool/light_status_bar</item>
         <item name="android:statusBarColor">@color/color_primary_variant</item>
+
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
     </style>
 </resources>

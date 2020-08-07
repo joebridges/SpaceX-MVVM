@@ -25,5 +25,7 @@
 
         <item name="android:windowLightNavigationBar">@bool/light_status_bar</item>
         <item name="android:navigationBarColor">@color/color_primary</item>
+
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
     </style>
 </resources>
