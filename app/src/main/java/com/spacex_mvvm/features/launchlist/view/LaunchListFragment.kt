@@ -1,42 +1,30 @@
 package com.spacex_mvvm.features.launchlist.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.spacex_mvvm.R
 import com.spacex_mvvm.data.repositories.launches.model.LaunchEra
 import com.spacex_mvvm.databinding.FragmentLaunchListBinding
 import com.spacex_mvvm.extensions.scrollToTopOnItemInserted
+import com.spacex_mvvm.ui.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_launch_list.*
 
 @AndroidEntryPoint
-class LaunchListFragment : Fragment() {
+class LaunchListFragment : Fragment(R.layout.fragment_launch_list) {
 
     private val viewModel: LaunchListViewModel by viewModels()
 
     private val args: LaunchListFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentLaunchListBinding
+    private val binding by viewBinding(FragmentLaunchListBinding::bind)
 
     private lateinit var errorSnackbar: Snackbar
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLaunchListBinding.inflate(layoutInflater, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,7 +36,7 @@ class LaunchListFragment : Fragment() {
 
         val launchEra = getLaunchEra()
 
-        swipeRefresh.setOnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             viewModel.loadLaunchesForEra(
                 launchEra,
                 forceRefresh = true
