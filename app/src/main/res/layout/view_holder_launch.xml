@@ -1,99 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/launch_list_item_margin">
 
-    <data>
-
-        <variable
-            name="launch"
-            type="com.spacex_mvvm.features.launchlist.model.LaunchListItem" />
-    </data>
-
-
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/launch_list_item_margin">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/missionPatchImageView"
+            android:layout_width="@dimen/launch_list_mission_patch_size"
+            android:layout_height="@dimen/launch_list_mission_patch_size"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="@dimen/launch_patch_list_item_margin"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@id/missionName"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/missionName"
+            tools:src="@drawable/ic_mission_patch_placeholder" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/missionName"
-                style="@style/LaunchListLaunchName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/launch_patch_list_item_margin"
-                android:layout_marginTop="@dimen/mission_patch_image_margin"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@{launch.missionName}"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintEnd_toStartOf="@+id/missionPatchImageView"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Starlink" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/missionName"
+            style="@style/LaunchListLaunchName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/missionPatchImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginStart="16dp"
+            tools:text="Starlink with some other very long text to make sure it ellipsizes" />
 
-            <ImageView
-                android:id="@+id/missionPatchImageView"
-                imageUrl="@{launch.missionPatchImageUrl}"
-                isVisible="@{launch.missionPatchImageUrl != null}"
-                android:layout_width="@dimen/launch_list_mission_patch_size"
-                android:layout_height="@dimen/launch_list_mission_patch_size"
-                android:scaleType="center"
-                android:layout_marginEnd="@dimen/launch_patch_list_item_margin"
-                app:layout_constraintBottom_toBottomOf="@id/missionName"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/missionName"
-                app:layout_constraintTop_toTopOf="@id/missionName"
-                tools:src="@drawable/ic_launcher_foreground" />
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/launchNameAndPatchBottomBarrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="missionName,missionPatchImageView" />
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/launchNameAndPatchBottomBarrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="missionName,missionPatchImageView" />
+        <ImageView
+            android:id="@+id/launchDateIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/launch_list_icon_margin"
+            android:layout_marginTop="@dimen/launch_list_icon_margin"
+            android:layout_marginBottom="@dimen/launch_list_icon_margin"
+            android:src="@drawable/ic_date_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/launchDate"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/launchNameAndPatchBottomBarrier" />
 
-            <ImageView
-                android:id="@+id/launchDateIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/launch_list_icon_margin"
-                android:layout_marginTop="@dimen/launch_list_icon_margin"
-                android:layout_marginBottom="@dimen/launch_list_icon_margin"
-                android:src="@drawable/ic_date_time"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/launchDate"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/launchNameAndPatchBottomBarrier" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/launchDate"
+            style="@style/CaptionOnSurface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/launch_list_detail_margin"
+            app:layout_constraintBottom_toBottomOf="@id/launchDateIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/launchDateIcon"
+            app:layout_constraintTop_toTopOf="@id/launchDateIcon"
+            tools:text="20/2/20 18:49" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/launchDate"
-                style="@style/CaptionOnSurface"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/launch_list_detail_margin"
-                android:text="@{launch.localDate}"
-                app:layout_constraintBottom_toBottomOf="@id/launchDateIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/launchDateIcon"
-                app:layout_constraintTop_toTopOf="@id/launchDateIcon"
-                tools:text="20/2/20 18:49" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-</layout>
+</com.google.android.material.card.MaterialCardView>
