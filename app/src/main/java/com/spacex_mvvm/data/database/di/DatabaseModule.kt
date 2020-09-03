@@ -27,4 +27,8 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideLaunchesDao(appDatabase: AppDatabase) = appDatabase.getLaunchesDao()
+
+    @Singleton
+    @Provides
+    fun provideLaunchImagesDao(appDatabase: AppDatabase) = appDatabase.getLaunchImagesDao()
 }

@@ -8,7 +8,8 @@ data class LaunchesResponseEntity(
 
 data class LaunchResponseEntity(
     @field:Json(name = "id") val id: String,
-    @field:Json(name = "name") val missionName: String,
+    @field:Json(name = "name") val name: String,
+    @field:Json(name = "details") val details: String?,
     @field:Json(name = "date_utc") val launchDateUtc: String,
     @field:Json(name = "date_precision") val launchDatePrecision: String,
     @field:Json(name = "upcoming") val isUpcoming: Boolean,
@@ -19,10 +20,15 @@ data class LaunchResponseEntity(
 )
 
 data class LaunchLinksResponseEntity(
-    @field:Json(name = "patch") val patch: PatchLinksResponseEntity
+    @field:Json(name = "patch") val patch: PatchLinksResponseEntity,
+    @field:Json(name = "flickr") val launchImages: FlickrLinksResponseEntity
 )
 
 data class PatchLinksResponseEntity(
     @field:Json(name = "small") val small: String?,
     @field:Json(name = "large") val large: String?
+)
+
+data class FlickrLinksResponseEntity(
+    @field:Json(name = "original") val original: List<String>
 )

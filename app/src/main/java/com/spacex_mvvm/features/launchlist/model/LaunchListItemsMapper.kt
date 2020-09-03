@@ -12,7 +12,7 @@ class LaunchListItemsMapper @Inject constructor(
                 LaunchListItem(
                     id,
                     missionPatchImageUrl,
-                    missionName,
+                    name,
                     dateFormatter.formatLaunchDate(launchDateUtc, launchDatePrecision)
                 )
             }

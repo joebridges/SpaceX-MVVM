@@ -15,7 +15,7 @@
     <color name="color_on_surface">#000000</color>
     <color name="color_on_error">#ffffff</color>
 
-    <color name="mission_patch_placeholder">#DDDDDD</color>
+    <color name="mission_patch_placeholder">#CCCCCC</color>
 
     <color name="black">#000000</color>
 </resources>

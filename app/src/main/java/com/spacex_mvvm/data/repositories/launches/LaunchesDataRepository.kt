@@ -42,6 +42,12 @@ class LaunchesDataRepository @Inject constructor(
         }
     }
 
+    override fun loadLaunch(launchId: String): Flow<Resource<Launch>> {
+        return launchesDao.observeLaunch(launchId).map { launchEntity ->
+            launchEntityMapper.mapFromEntity(launchEntity)
+        }.asSuccessResource()
+    }
+
     private fun updateLaunchesFromNetwork(
         launches: Flow<List<Launch>>,
         launchEra: LaunchEra,

@@ -12,4 +12,6 @@ interface LaunchesRepository {
         order: LaunchesDateOrder,
         forceRefresh: Boolean
     ): Flow<Resource<List<Launch>>>
+
+    fun loadLaunch(launchId: String): Flow<Resource<Launch>>
 }

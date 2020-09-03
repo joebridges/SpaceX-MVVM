@@ -1,31 +1,39 @@
 package com.spacex_mvvm.data.mappers.launch
 
-import com.spacex_mvvm.data.database.launches.LaunchEntity
+import com.spacex_mvvm.data.database.launches.LaunchWithImagesEntity
+import com.spacex_mvvm.data.database.launches.images.LaunchImageEntity
 import com.spacex_mvvm.data.mappers.EntityMapper
 import com.spacex_mvvm.data.repositories.launches.model.Launch
 import com.spacex_mvvm.data.repositories.launches.model.LaunchDatePrecision
 import javax.inject.Inject
 
-class LaunchEntityMapper @Inject constructor() : EntityMapper<LaunchEntity, Launch> {
+class LaunchEntityMapper @Inject constructor() : EntityMapper<LaunchWithImagesEntity, Launch> {
 
-    override fun mapToEntity(model: Launch): LaunchEntity {
+    override fun mapToEntity(model: Launch): LaunchWithImagesEntity {
         throw NotImplementedError()
     }
 
-    override fun mapFromEntity(entity: LaunchEntity): Launch {
-        with(entity) {
+    override fun mapFromEntity(entity: LaunchWithImagesEntity): Launch {
+        with(entity.launch) {
             return Launch(
                 id,
-                missionName,
+                name,
+                details,
                 launchDateUtc,
                 mapLaunchDatePrecision(launchDatePrecision),
                 isUpcoming,
                 isLaunchDateTbd,
+                mapLaunchImages(entity.images),
                 missionPatchImageUrl,
                 rocketId,
                 launchPadId
             )
         }
+    }
+
+    private fun mapLaunchImages(launchImageEntities: List<LaunchImageEntity>?): List<String> {
+        return launchImageEntities?.map { launchImageEntity -> launchImageEntity.imageUrl }
+            ?: emptyList()
     }
 
     private fun mapLaunchDatePrecision(precision: String): LaunchDatePrecision {

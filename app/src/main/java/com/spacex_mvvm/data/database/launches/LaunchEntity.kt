@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "launches")
 data class LaunchEntity(
     @PrimaryKey val id: String,
-    val missionName: String,
+    val name: String,
+    val details: String?,
     val launchDateUtc: String,
     val launchDatePrecision: String,
     val isUpcoming: Boolean,

@@ -1,18 +1,21 @@
 package com.spacex_mvvm.features.launchlist.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.spacex_mvvm.databinding.ViewHolderLaunchBinding
 import com.spacex_mvvm.features.launchlist.model.LaunchListItem
 
-class LaunchAdapter : ListAdapter<LaunchListItem, LaunchViewHolder>(diffUtil) {
+class LaunchAdapter(
+    private val onClickListener: (LaunchListItem, View) -> Unit
+): ListAdapter<LaunchListItem, LaunchViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ViewHolderLaunchBinding.inflate(inflater, parent, false)
-        return LaunchViewHolder(binding)
+        return LaunchViewHolder(binding, onClickListener)
     }
 
     override fun onBindViewHolder(holder: LaunchViewHolder, position: Int) {
